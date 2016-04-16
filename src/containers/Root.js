@@ -1,40 +1,22 @@
 import React, {
-  Component,
   StyleSheet,
   Text,
   View
 } from 'react-native';
 import { Provider } from 'react-redux';
+import MyTripsPage from './MyTripsPage';
 import configureStore from '../store/configureStore';
 
 const store = configureStore();
 
-class Root extends Component {
+const Root = React.createClass({
   render() {
     return (
       <Provider store={store}>
-        <View style={styles.container}>
-          <Text style={styles.content}>
-            TripDivvy: Coming Soon!
-          </Text>
-        </View>
+        <MyTripsPage />
       </Provider>
     );
   }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  content: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
 });
 
 export default Root;
