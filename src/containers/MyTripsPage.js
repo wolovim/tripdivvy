@@ -1,5 +1,5 @@
 import React, {
-  Component,
+  Alert,
   ListView,
   StyleSheet,
   Text,
@@ -34,14 +34,19 @@ const MyTripsPage = React.createClass({
   },
 
   handlePress() {
-    this.props.dispatch(createTrip(this.state.tripName));
+    const { tripName } = this.state;
+    if (tripName === '') {
+      return Alert.alert('You went where?', 'Your trip must have a name!');
+    }
+
+    this.props.dispatch(createTrip(tripName));
     this.setState({ tripName: '' });
   },
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.content}>
+        <Text style={styles.title}>
           TripDivvy
         </Text>
 
@@ -76,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fdfefb',
     flex: 1,
   },
-  content: {
+  title: {
     color: '#666',
     fontSize: 26,
     marginTop: 40,
@@ -99,7 +104,6 @@ const styles = StyleSheet.create({
   },
   tripList: {
     alignSelf: 'stretch',
-    flex: 1,
     marginTop: 20,
   },
 });

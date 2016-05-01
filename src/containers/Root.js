@@ -1,8 +1,4 @@
-import React, {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import React from 'react-native';
 import { Provider } from 'react-redux';
 import MyTripsPage from './MyTripsPage';
 import configureStore from '../store/configureStore';
