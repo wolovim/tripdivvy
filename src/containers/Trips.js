@@ -63,7 +63,7 @@ const MyTripsPage = React.createClass({
         <ListView
           style={styles.tripList}
           dataSource={this.state.trips}
-          renderRow={trip => { return <TripListItem trip={trip} /> }} />
+          renderRow={trip => { return <TripListItem navigator={this.props.navigator} trip={trip} /> }} />
       </View>
     );
   }

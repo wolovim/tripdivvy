@@ -6,9 +6,18 @@ import React, {
 } from 'react-native';
 
 const TripListItem = React.createClass({
+  showTripPage() {
+    this.props.navigator.push({
+      name: 'trip',
+      passProps: {
+        tripName: this.props.trip.name
+      }
+    });
+  },
+
   render() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={this.showTripPage}>
         <View style={styles.row}>
           <Text style={styles.content}>
             {this.props.trip.name}
