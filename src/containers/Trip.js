@@ -14,7 +14,7 @@ const Trip = React.createClass({
     this.props.dispatch(getTrip(this.props.tripName));
   },
 
-  handleAddExpense() {
+  navigateToAddExpense() {
     this.props.navigator.push({
       name: 'expense'
     });
@@ -37,7 +37,7 @@ const Trip = React.createClass({
           This will be the trip page.
         </Text>
 
-        <Button style={styles.button} onPress={this.handleAddExpense}>
+        <Button style={styles.button} onPress={this.navigateToAddExpense}>
           Add an Expense
         </Button>
       </View>

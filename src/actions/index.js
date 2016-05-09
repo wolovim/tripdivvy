@@ -1,9 +1,9 @@
 import * as types from './actionTypes';
-import trips from '../services/trips';
+import trip from '../services/trip';
 
 export function createTrip(tripName) {
   return dispatch => {
-    trips.addTrip(tripName)
+    trip.addTrip(tripName)
       .then(dispatch(createTripSuccess(tripName)));
   }
 }
@@ -14,7 +14,7 @@ function createTripSuccess(tripName) {
 
 export function getTrips() {
   return dispatch => {
-    trips.getTrips()
+    trip.getTrips()
       .then(trips => dispatch(getTripsSuccess(trips)));
   }
 }
@@ -25,11 +25,18 @@ function getTripsSuccess(trips) {
 
 export function getTrip(tripName) {
   return dispatch => {
-    trips.getTrip(tripName)
+    trip.getTrip(tripName)
       .then(trip => dispatch(getTripSuccess(trip)));
   }
 }
 
 function getTripSuccess(trip) {
   return { type: types.GET_TRIP_SUCCESS, trip };
+}
+
+export function addExpense(tripName, expense) {
+  return dispatch => {
+    trip.addExpense(tripName, expense)
+      .then(() => dispatch(getTrip(tripName)));
+  }
 }
