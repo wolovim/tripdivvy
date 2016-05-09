@@ -1,4 +1,5 @@
 import React, {
+  ListView,
   StyleSheet,
   Text,
   TextInput,
@@ -8,10 +9,16 @@ import React, {
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { getTrip } from '../actions/';
+import { find } from 'lodash';
 
 const Trip = React.createClass({
-  componentWillMount() {
-    this.props.dispatch(getTrip(this.props.tripName));
+  getInitialState() {
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    const trip = find(this.props.trips.list, (trip) => {
+      return trip.name === this.props.tripName;
+    });
+    return { expenses: ds.cloneWithRows(trip.expenses) };
   },
 
   navigateToAddExpense() {
@@ -40,6 +47,12 @@ const Trip = React.createClass({
         <Button style={styles.button} onPress={this.navigateToAddExpense}>
           Add an Expense
         </Button>
+
+        <ListView
+          style={styles.tripList}
+          dataSource={this.state.expenses}
+          enableEmptySections={true}
+          renderRow={expense => { return <Text>{expense.title} - {expense.cost}</Text> }} />
       </View>
     );
   }
@@ -84,5 +97,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 15,
     width: 200,
+  },
+  tripList: {
+    alignSelf: 'stretch',
+    marginTop: 20,
   },
 });
