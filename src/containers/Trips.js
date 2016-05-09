@@ -11,7 +11,7 @@ import Button from 'react-native-button';
 import { getTrips, createTrip } from '../actions/';
 import TripListItem from './TripListItem';
 
-const MyTripsPage = React.createClass({
+const Trips = React.createClass({
   getInitialState() {
     const ds = new ListView.DataSource({
       rowHasChanged: (row1, row2) => row1 !== row2
@@ -74,7 +74,7 @@ function mapStateToProps(state) {
   return state;
 }
 
-export default connect(mapStateToProps)(MyTripsPage);
+export default connect(mapStateToProps)(Trips);
 
 const styles = StyleSheet.create({
   container: {

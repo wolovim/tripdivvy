@@ -1,4 +1,5 @@
 import { AsyncStorage } from 'react-native';
+import { find } from 'lodash';
 
 class Trips {
   addTrip(tripName) {
@@ -15,6 +16,18 @@ class Trips {
       .then(
         tripJSON => {
           return JSON.parse(tripJSON || '[]')
+        }
+      );
+  }
+
+  getTrip(tripName) {
+    return AsyncStorage.getItem('trips')
+      .then(
+        tripJSON => {
+          const trips = JSON.parse(tripJSON || '[]')
+          return find(trips, (trip) => {
+            return trip.name === tripName;
+          });
         }
       );
   }

@@ -5,51 +5,35 @@ import React, {
   TouchableOpacity,
   View
 } from 'react-native';
-import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import { getTrip } from '../actions/';
 
-const Trip = React.createClass({
-  componentWillMount() {
-    this.props.dispatch(getTrip(this.props.tripName));
-  },
-
+const Expense = React.createClass({
   handleAddExpense() {
-    this.props.navigator.push({
-      name: 'expense'
-    });
+    console.log('navigating to expense');
   },
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          {this.props.trip.name}
+          New Expense
         </Text>
 
         <TouchableOpacity style={styles.backBtn} onPress={() => { return this.props.navigator.pop(); }}>
           <Text style={styles.backText}>
-            {'< Trips'}
+            {'< Trip'}
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.content}>
-          This will be the trip page.
-        </Text>
-
         <Button style={styles.button} onPress={this.handleAddExpense}>
-          Add an Expense
+          Add Expense
         </Button>
       </View>
     );
   }
 });
 
-function mapStateToProps(state) {
-  return state;
-}
-
-export default connect(mapStateToProps)(Trip);
+export default Expense;
 
 const styles = StyleSheet.create({
   container: {
@@ -71,10 +55,6 @@ const styles = StyleSheet.create({
     color: '#666',
     fontSize: 26,
     marginTop: 40,
-    textAlign: 'center',
-  },
-  content: {
-    color: '#666',
     textAlign: 'center',
   },
   button: {
