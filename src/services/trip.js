@@ -52,7 +52,6 @@ class Trip {
         return JSON.stringify(trips);
       })
       .then(tripsJSON => {
-        console.log('tripsJSON: ', tripsJSON);
         AsyncStorage.setItem('trips', tripsJSON);
       })
   }

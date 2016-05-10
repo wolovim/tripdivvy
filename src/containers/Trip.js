@@ -9,29 +9,53 @@ import React, {
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { getTrip } from '../actions/';
-import { find } from 'lodash';
+import { find, reduce } from 'lodash';
 
 const Trip = React.createClass({
   getInitialState() {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    return { expenses: new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2}) };
+  },
 
-    const trip = find(this.props.trips.list, (trip) => {
-      return trip.name === this.props.tripName;
+  componentWillMount() {
+    this.props.dispatch(getTrip(this.props.tripName));
+  },
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      expenses: this.state.expenses.cloneWithRows(nextProps.trip.expenses)
     });
-    return { expenses: ds.cloneWithRows(trip.expenses) };
   },
 
   navigateToAddExpense() {
     this.props.navigator.push({
-      name: 'expense'
+      name: 'expense',
+      passProps: {
+        tripName: this.props.tripName
+      }
     });
+  },
+
+  renderRow(expense) {
+    return (
+      <View style={styles.rowContainer}>
+        <Text style={styles.expenseTitle}>{expense.title}</Text>
+        <Text style={styles.expensePayer}>paid by: {expense.payer}</Text>
+        <Text style={styles.expenseCost}>${expense.cost}</Text>
+      </View>
+    );
+  },
+
+  totalTripExpenses() {
+    return reduce(this.props.trip.expenses, (sum, expense) => {
+      return parseInt(sum, 10) + parseInt(expense.cost, 10);
+    }, 0);
   },
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
-          {this.props.trip.name}
+          {this.props.tripName}
         </Text>
 
         <TouchableOpacity style={styles.backBtn} onPress={() => { return this.props.navigator.pop(); }}>
@@ -49,10 +73,15 @@ const Trip = React.createClass({
         </Button>
 
         <ListView
-          style={styles.tripList}
+          style={styles.expenseList}
           dataSource={this.state.expenses}
           enableEmptySections={true}
-          renderRow={expense => { return <Text>{expense.title} - {expense.cost}</Text> }} />
+          renderRow={this.renderRow} />
+
+        <View style={styles.sumView}>
+          <Text style={styles.sum}>Total Trip Expenses:</Text>
+          <Text style={styles.sumValue}>${this.totalTripExpenses()}</Text>
+        </View>
       </View>
     );
   }
@@ -98,8 +127,55 @@ const styles = StyleSheet.create({
     padding: 15,
     width: 200,
   },
-  tripList: {
-    alignSelf: 'stretch',
+  expenseList: {
     marginTop: 20,
+    borderColor: '#c0ded3',
+    borderTopWidth: 2,
+    backgroundColor: 'white',
+  },
+  rowContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
+    flex: 1,
+    flexDirection: 'row',
+    padding: 25,
+  },
+  expenseTitle: {
+    flex: 1,
+    color: '#666',
+  },
+  expensePayer: {
+    flex: 1,
+    color: '#666',
+    fontSize: 13,
+    fontStyle: 'italic',
+  },
+  expenseCost: {
+    color: '#666',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    fontWeight: 'bold',
+  },
+  sumView: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    borderColor: '#c0ded3',
+    borderTopWidth: 2,
+  },
+  sum: {
+    marginTop: 10,
+    color: '#666',
+    fontSize: 16,
+  },
+  sumValue: {
+    color: '#666',
+    fontWeight: 'bold',
+    marginTop: 10,
+    paddingLeft: 10,
+    paddingRight: 25,
+    fontSize: 16,
   },
 });

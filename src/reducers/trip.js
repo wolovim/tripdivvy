@@ -2,7 +2,7 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   name: '',
-  people: [],
+  members: [],
   expenses: []
 }
 

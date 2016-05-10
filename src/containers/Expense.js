@@ -18,7 +18,7 @@ const Expense = React.createClass({
   handleAddExpense() {
     // render alert if empty state
     console.log('expense: ', this.state);
-    this.props.dispatch(addExpense(this.props.trip.name, this.state));
+    this.props.dispatch(addExpense(this.props.tripName, this.state));
     this.props.navigator.pop();
   },
 
