@@ -8,7 +8,7 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import { getTrips, createTrip } from '../actions/';
+import { getTrips } from '../actions/';
 import TripListItem from './TripListItem';
 
 const Trips = React.createClass({
@@ -39,7 +39,10 @@ const Trips = React.createClass({
       return Alert.alert('You went where?', 'Your trip must have a name!');
     }
 
-    this.props.dispatch(createTrip(tripName));
+    this.props.navigator.push({
+      name: 'tripEdit',
+      passProps: { tripName }
+    });
     this.setState({ tripName: '' });
   },
 

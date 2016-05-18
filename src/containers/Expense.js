@@ -12,12 +12,11 @@ import { addExpense } from '../actions/';
 
 const Expense = React.createClass({
   getInitialState() {
-    return { title: '', cost: 0, payer: 'me' };
+    return { title: '', total: '', payer: 'me' };
   },
 
   handleAddExpense() {
     // render alert if empty state
-    console.log('expense: ', this.state);
     this.props.dispatch(addExpense(this.props.tripName, this.state));
     this.props.navigator.pop();
   },
@@ -25,9 +24,7 @@ const Expense = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          New Expense
-        </Text>
+        <Text style={styles.title}>New Expense</Text>
 
         <TouchableOpacity
           style={styles.backBtn}
@@ -38,24 +35,24 @@ const Expense = React.createClass({
         </TouchableOpacity>
 
         <TextInput
-          keyboardType='default'
           onChangeText={title => { this.setState({ title }); }}
+          multiline={false}
           placeholder='Expense title'
-          value={this.state.title}
-          style={styles.input} />
+          style={styles.input}
+          value={this.state.title} />
         <TextInput
-          keyboardType='numeric'
           onChangeText={cost => { this.setState({ cost }); }}
+          multiline={false}
           placeholder='Cost'
-          value={this.state.total}
-          style={styles.input} />
+          style={styles.input}
+          value={this.state.total} />
         <Picker
           onValueChange={payer => { this.setState({ payer }); }}
           selectedValue={this.state.payer}
           style={styles.inputPicker}>
-          <Picker.item label='Me' value='me' />
-          <Picker.item label='Test 1' value='test1' />
-          <Picker.item label='Test 2' value='test2' />
+          <Picker.item label='Me' value='Me' />
+          <Picker.item label='Test 1' value='Test1' />
+          <Picker.item label='Test 2' value='Test2' />
         </Picker>
 
         <Button style={styles.button} onPress={this.handleAddExpense}>

@@ -1,16 +1,18 @@
 import React, { Navigator, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
-import Trips from './Trips';
-import Trip from './Trip';
 import Expense from './Expense';
+import Trip from './Trip';
+import TripEdit from './TripEdit';
+import Trips from './Trips';
 import configureStore from '../store/configureStore';
 
 const store = configureStore();
 
 const ROUTES = {
-  trips: Trips,
-  trip: Trip,
   expense: Expense,
+  trip: Trip,
+  tripEdit: TripEdit,
+  trips: Trips,
 };
 
 const Root = React.createClass({
