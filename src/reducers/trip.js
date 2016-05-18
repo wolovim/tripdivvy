@@ -2,8 +2,8 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   name: '',
-  members: [],
-  expenses: []
+  expenses: [],
+  travelers: []
 }
 
 function trip(state = initialState, action) {

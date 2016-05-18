@@ -21,6 +21,7 @@ const Trip = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
+    console.log('nextProps: ', nextProps);
     this.setState({
       expenses: this.state.expenses.cloneWithRows(nextProps.trip.expenses)
     });
@@ -65,7 +66,7 @@ const Trip = React.createClass({
         </TouchableOpacity>
 
         <Text style={styles.content}>
-          This will be the trip page.
+          {this.props.trip.travelers.length} travelers
         </Text>
 
         <Button style={styles.button} onPress={this.navigateToAddExpense}>

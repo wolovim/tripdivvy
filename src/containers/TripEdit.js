@@ -16,9 +16,9 @@ const TripEdit = React.createClass({
   },
 
   renderTravelers() {
-    return this.state.travelers.map(traveler => {
+    return this.state.travelers.map((traveler, index) => {
       return (
-        <View style={styles.travelerContainer}>
+        <View key={index} style={styles.travelerContainer}>
           <Text>{traveler}</Text>
         </View>
       )
@@ -32,9 +32,16 @@ const TripEdit = React.createClass({
     });
   },
 
-  createTrip() {
-    const trip = {};
-    this.props.dispatch(createTrip(trip));
+  handleCreateTrip() {
+    const data = {
+      name: this.props.tripName,
+      travelers: this.state.travelers
+    };
+    this.props.dispatch(createTrip(data));
+    this.props.navigator.push({
+      name: 'trip',
+      passProps: { tripName: this.props.tripName }
+    });
   },
 
   render() {
@@ -65,7 +72,7 @@ const TripEdit = React.createClass({
 
         {this.renderTravelers()}
 
-        <Button style={styles.button} onPress={this.createTrip}>Create Trip</Button>
+        <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>
       </View>
     );
   }

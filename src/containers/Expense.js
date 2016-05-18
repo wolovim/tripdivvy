@@ -12,13 +12,19 @@ import { addExpense } from '../actions/';
 
 const Expense = React.createClass({
   getInitialState() {
-    return { title: '', total: '', payer: 'me' };
+    return { title: '', cost: '', payer: 'me' };
   },
 
   handleAddExpense() {
     // render alert if empty state
     this.props.dispatch(addExpense(this.props.tripName, this.state));
     this.props.navigator.pop();
+  },
+
+  renderPickerOptions() {
+    return this.props.trip.travelers.map((traveler, index) => {
+      return <Picker.Item label={traveler} value={traveler} key={index} />
+    });
   },
 
   render() {
@@ -45,14 +51,12 @@ const Expense = React.createClass({
           multiline={false}
           placeholder='Cost'
           style={styles.input}
-          value={this.state.total} />
+          value={this.state.cost} />
         <Picker
           onValueChange={payer => { this.setState({ payer }); }}
           selectedValue={this.state.payer}
           style={styles.inputPicker}>
-          <Picker.item label='Me' value='Me' />
-          <Picker.item label='Test 1' value='Test1' />
-          <Picker.item label='Test 2' value='Test2' />
+          {this.renderPickerOptions()}
         </Picker>
 
         <Button style={styles.button} onPress={this.handleAddExpense}>

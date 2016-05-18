@@ -1,15 +1,15 @@
 import * as types from './actionTypes';
 import trip from '../services/trip';
 
-export function createTrip(tripName) {
+export function createTrip(tripData) {
   return dispatch => {
-    trip.addTrip(tripName)
-      .then(dispatch(createTripSuccess(tripName)));
+    trip.addTrip(tripData)
+      .then(dispatch(createTripSuccess(tripData)));
   }
 }
 
-function createTripSuccess(tripName) {
-  return { type: types.CREATE_TRIP_SUCCESS, tripName };
+function createTripSuccess(trip) {
+  return { type: types.CREATE_TRIP_SUCCESS, trip };
 }
 
 export function getTrips() {

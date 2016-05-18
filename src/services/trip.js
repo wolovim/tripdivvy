@@ -2,13 +2,15 @@ import { AsyncStorage } from 'react-native';
 import { assign, find, remove } from 'lodash';
 
 class Trip {
-  addTrip(tripName) {
+  addTrip(trip) {
     return this.getTrips()
       .then(trips => {
-        trips.push({ name: tripName, members: [], expenses: [] });
+        trips.push({ name: trip.name, travelers: trip.travelers, expenses: [] });
         return JSON.stringify(trips);
       })
-      .then(tripsJSON => AsyncStorage.setItem('trips', tripsJSON));
+      .then(tripsJSON => {
+        AsyncStorage.setItem('trips', tripsJSON);
+      })
   }
 
   getTrips() {
