@@ -25,9 +25,14 @@ function getTripsSuccess(trips) {
 
 export function getTrip(tripName) {
   return dispatch => {
+    dispatch(fetchingTrip());
     trip.getTrip(tripName)
       .then(trip => dispatch(getTripSuccess(trip)));
   }
+}
+
+function fetchingTrip() {
+  return { type: types.FETCHING_TRIP };
 }
 
 function getTripSuccess(trip) {

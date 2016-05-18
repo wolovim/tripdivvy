@@ -1,6 +1,7 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
+  isFetching: false,
   name: '',
   expenses: [],
   travelers: []
@@ -8,10 +9,16 @@ const initialState = {
 
 function trip(state = initialState, action) {
   switch (action.type) {
+    case types.FETCHING_TRIP:
+      return {
+        ...state,
+        isFetching: true
+      }
     case types.GET_TRIP_SUCCESS:
       return {
         ...state,
-        ...action.trip
+        ...action.trip,
+        isFetching: false
       }
     default:
       return state;

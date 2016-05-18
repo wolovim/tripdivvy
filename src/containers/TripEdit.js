@@ -12,7 +12,7 @@ import { createTrip } from '../actions/';
 
 const TripEdit = React.createClass({
   getInitialState() {
-    return { newTraveler: '', travelers: [] };
+    return { newTraveler: '', travelers: ['Me'] };
   },
 
   renderTravelers() {
