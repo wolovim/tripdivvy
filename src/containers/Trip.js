@@ -36,6 +36,15 @@ const Trip = React.createClass({
     });
   },
 
+  navigateToBreakdown() {
+    this.props.navigator.push({
+      name: 'breakdown',
+      passProps: {
+        tripName: this.props.tripName
+      }
+    });
+  },
+
   renderRow(expense) {
     return (
       <View style={styles.rowContainer}>
@@ -83,6 +92,10 @@ const Trip = React.createClass({
           <Text style={styles.sum}>Total Trip Expenses:</Text>
           <Text style={styles.sumValue}>${this.totalTripExpenses()}</Text>
         </View>
+
+        <Button style={styles.button} onPress={this.navigateToBreakdown}>
+          View Breakdown
+        </Button>
       </View>
     );
   }

@@ -1,5 +1,6 @@
 import React, { Navigator, StyleSheet } from 'react-native';
 import { Provider } from 'react-redux';
+import Breakdown from './Breakdown';
 import Expense from './Expense';
 import Trip from './Trip';
 import TripEdit from './TripEdit';
@@ -9,6 +10,7 @@ import configureStore from '../store/configureStore';
 const store = configureStore();
 
 const ROUTES = {
+  breakdown: Breakdown,
   expense: Expense,
   trip: Trip,
   tripEdit: TripEdit,
