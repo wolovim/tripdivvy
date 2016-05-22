@@ -20,6 +20,11 @@ function trip(state = initialState, action) {
         ...action.trip,
         isFetching: false
       }
+    case types.CREATE_TRIP_SUCCESS:
+      return {
+        ...state,
+        ...action.trip
+      }
     default:
       return state;
   }
