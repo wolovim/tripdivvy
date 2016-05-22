@@ -27,7 +27,7 @@ class Trip {
       .then(
         tripJSON => {
           const trips = JSON.parse(tripJSON || '[]')
-          return find(trips, (trip) => {
+          return find(trips, trip => {
             return trip.name === tripName;
           });
         }

@@ -12,7 +12,7 @@ import { addExpense } from '../actions/';
 
 const Expense = React.createClass({
   getInitialState() {
-    return { title: '', cost: '', payer: 'me' };
+    return { title: '', cost: '', payer: 'Me' };
   },
 
   handleAddExpense() {
