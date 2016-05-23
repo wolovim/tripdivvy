@@ -21,7 +21,6 @@ const Trip = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    console.log('nextProps: ', nextProps);
     this.setState({
       expenses: this.state.expenses.cloneWithRows(nextProps.trip.expenses)
     });
@@ -68,7 +67,7 @@ const Trip = React.createClass({
           {this.props.tripName}
         </Text>
 
-        <TouchableOpacity style={styles.backBtn} onPress={() => { return this.props.navigator.pop(); }}>
+        <TouchableOpacity style={styles.backBtn} onPress={() => { return this.props.navigator.popToTop(); }}>
           <Text style={styles.backText}>
             {'< Trips'}
           </Text>

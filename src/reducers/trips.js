@@ -14,7 +14,7 @@ function trips(state = initialState, action) {
     case types.CREATE_TRIP_SUCCESS:
       return {
         ...state,
-        'list': state.list.concat({ name: action.tripName })
+        'list': state.list.concat(action.trip)
       }
     default:
       return state;

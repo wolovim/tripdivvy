@@ -35,7 +35,8 @@ const TripEdit = React.createClass({
   handleCreateTrip() {
     const data = {
       name: this.props.tripName,
-      travelers: this.state.travelers
+      travelers: this.state.travelers,
+      expenses: []
     };
     this.props.dispatch(createTrip(data));
     this.props.navigator.push({
