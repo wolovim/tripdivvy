@@ -47,11 +47,11 @@ const Expense = React.createClass({
           style={styles.input}
           value={this.state.title} />
         <TextInput
-          onChangeText={cost => { this.setState({ cost }); }}
+          onChangeText={cost => { this.setState({ cost: parseInt(parseFloat(cost) + 0.5) }); }}
           multiline={false}
           placeholder='Cost'
           style={styles.input}
-          value={this.state.cost} />
+          value={this.state.cost.toString()} />
         <Picker
           onValueChange={payer => { this.setState({ payer }); }}
           selectedValue={this.state.payer}
