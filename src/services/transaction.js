@@ -33,21 +33,23 @@ class Transaction {
     let transactions = []; // [{ payer: 'me', payee: 'you', amount: 505 }]
     for (let travelerA in travelersWithBalance) {
       while (travelersWithBalance[travelerA] < 0) {
+        if (this._groupBalanceIsExhausted(travelersWithBalance)) { break; }
         // iterate over other travelers to find a traveler with positive balance,
         for (let travelerB in travelersWithBalance) {
           if (travelersWithBalance[travelerA] === 0) { break; }
+          if (this._groupBalanceIsExhausted(travelersWithBalance)) { break; }
           if (travelersWithBalance[travelerB] > 0) {
             // then compare the two balances:
             //    if (abs value) travelerA balance is >= travelerB,
-            if (-travelersWithBalance[travelerA] > travelersWithBalance[travelerB]) {
+            if (-travelersWithBalance[travelerA] >= travelersWithBalance[travelerB]) {
               // create a list item for full balance of travelerB,
-              transactions.push({ payer: travelerA, payee: travelerB, amount: parseFloat(travelersWithBalance[travelerB]).toFixed(2) });
+              transactions.push({ payer: travelerA, payee: travelerB, amount: parseInt(travelersWithBalance[travelerB] + 0.5, 10) });
               // then zero out travelerB and add travelerB balance from A
               travelersWithBalance[travelerA] = travelersWithBalance[travelerA] + travelersWithBalance[travelerB];
               travelersWithBalance[travelerB] = 0;
             } else if (-travelersWithBalance[travelerA] < travelersWithBalance[travelerB]) {
               // create a list item for full balance of travelerA,
-              transactions.push({ payer: travelerA, payee: travelerB, amount: parseFloat(-travelersWithBalance[travelerA]).toFixed(2) });
+              transactions.push({ payer: travelerA, payee: travelerB, amount: parseInt(-travelersWithBalance[travelerA] + 0.5, 10) });
               // then zero out travelerA and subtract travelerA balance from B
               travelersWithBalance[travelerB] = travelersWithBalance[travelerB] + travelersWithBalance[travelerA];
               travelersWithBalance[travelerA] = 0;
@@ -58,6 +60,14 @@ class Transaction {
     }
 
     return transactions;
+  }
+
+  _groupBalanceIsExhausted(travelers) {
+    const groupBalance = Object.keys(travelers).reduce((sum, traveler) => {
+      return sum + Math.abs(travelers[traveler])
+    }, 0);
+
+    return groupBalance <= 1;
   }
 }
 
