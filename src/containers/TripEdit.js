@@ -1,4 +1,5 @@
 import React, {
+  Alert,
   ListView,
   StyleSheet,
   Text,
@@ -26,6 +27,10 @@ const TripEdit = React.createClass({
   },
 
   addTraveler() {
+    if (this.state.newTraveler === '') {
+      return Alert.alert('Who?', 'The traveler must have a name!');
+    }
+
     this.setState({
       travelers: this.state.travelers.concat(this.state.newTraveler),
       newTraveler: ''
