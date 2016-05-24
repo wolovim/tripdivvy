@@ -20,6 +20,26 @@ const Breakdown = React.createClass({
     this.setState({ transactions: this.state.transactions.cloneWithRows(transactions) });
   },
 
+  renderTransactions() {
+    if (this.state.transactions._cachedRowCount === 0) {
+      return (
+        <View style={styles.noTransactionContainer}>
+          <Text style={styles.noTransactionTitle}>No expenses to divvy up yet!</Text>
+          <Text>When you create some,</Text>
+          <Text>you'll see who owes who.</Text>
+        </View>
+      );
+    }
+
+    return (
+      <ListView
+        style={styles.expenseList}
+        dataSource={this.state.transactions}
+        enableEmptySections={true}
+        renderRow={this.renderRow} />
+    )
+  },
+
   renderRow(transaction) {
     return (
       <View style={styles.rowContainer}>
@@ -42,11 +62,7 @@ const Breakdown = React.createClass({
           </Text>
         </TouchableOpacity>
 
-        <ListView
-          style={styles.expenseList}
-          dataSource={this.state.transactions}
-          enableEmptySections={true}
-          renderRow={this.renderRow} />
+        {this.renderTransactions()}
       </View>
     );
   }
@@ -64,9 +80,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backBtn: {
-    marginTop: -25,
-    marginBottom: 30,
     alignItems: 'flex-start',
+    marginBottom: 30,
+    marginTop: -25,
   },
   backText: {
     color: '#666',
@@ -90,12 +106,22 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   transactionPayer: {
-    flex: 1,
     color: '#666',
+    flex: 1,
   },
   transactionAmount: {
-    color: '#666',
     alignItems: 'flex-end',
+    color: '#666',
     fontWeight: 'bold',
+  },
+  noTransactionContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  noTransactionTitle: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+    marginTop: -100,
   },
 });
