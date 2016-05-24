@@ -1,4 +1,5 @@
 import React, {
+  Alert,
   Picker,
   StyleSheet,
   Text,
@@ -16,7 +17,12 @@ const Expense = React.createClass({
   },
 
   handleAddExpense() {
-    // render alert if empty state
+    if (this.state.title === '') {
+      return Alert.alert('What did you buy?', 'Give it a name!');
+    } else if (this.state.cost === '') {
+      return Alert.alert('It wasn\'t free was it?', `How much did ${this.state.title} cost?`);
+    }
+
     this.props.dispatch(addExpense(this.props.tripName, this.state));
     this.props.navigator.pop();
   },
