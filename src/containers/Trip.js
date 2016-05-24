@@ -92,9 +92,11 @@ const Trip = React.createClass({
           <Text style={styles.sumValue}>${this.totalTripExpenses()}</Text>
         </View>
 
-        <Button style={styles.button} onPress={this.navigateToBreakdown}>
-          View Breakdown
-        </Button>
+        <View style={styles.viewBreakdownView}>
+          <Button style={styles.button} onPress={this.navigateToBreakdown}>
+            View Breakdown
+          </Button>
+        </View>
       </View>
     );
   }
@@ -141,6 +143,7 @@ const styles = StyleSheet.create({
     width: 200,
   },
   expenseList: {
+    flex: 2,
     marginTop: 20,
     borderColor: '#c0ded3',
     borderTopWidth: 2,
@@ -172,7 +175,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   sumView: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     borderColor: '#c0ded3',
@@ -190,5 +192,10 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 25,
     fontSize: 16,
+  },
+  viewBreakdownView: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
