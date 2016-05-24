@@ -43,10 +43,14 @@ const Breakdown = React.createClass({
   renderRow(transaction) {
     return (
       <View style={styles.rowContainer}>
-        <Text style={styles.transactionPayer}>{transaction.payer} owes {transaction.payee}</Text>
+        <Text style={styles.transactionPayer}>{this.renderPayerText(transaction.payer)} {transaction.payee}</Text>
         <Text style={styles.transactionAmount}>${transaction.amount}</Text>
       </View>
     );
+  },
+
+  renderPayerText(payer) {
+    return payer === 'Me' ? 'I owe' : `${payer} owes`;
   },
 
   render() {
