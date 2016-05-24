@@ -9,21 +9,30 @@ import React, {
 } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import { createTrip } from '../actions/';
+import { addTraveler, createTrip } from '../actions/';
 
 const TripEdit = React.createClass({
   getInitialState() {
-    return { newTraveler: '', travelers: ['Me'] };
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+
+    return {
+      newTraveler: '',
+      travelers: ds.cloneWithRows(this.props.travelers.list)
+    };
   },
 
-  renderTravelers() {
-    return this.state.travelers.map((traveler, index) => {
-      return (
-        <View key={index} style={styles.travelerContainer}>
-          <Text>{traveler}</Text>
-        </View>
-      )
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      travelers: this.state.travelers.cloneWithRows(nextProps.travelers.list)
     });
+  },
+
+  renderRow(traveler) {
+    return (
+      <View style={styles.rowContainer}>
+        <Text style={styles.travelerName}>{traveler}</Text>
+      </View>
+    );
   },
 
   addTraveler() {
@@ -31,18 +40,17 @@ const TripEdit = React.createClass({
       return Alert.alert('Who?', 'The traveler must have a name!');
     }
 
-    this.setState({
-      travelers: this.state.travelers.concat(this.state.newTraveler),
-      newTraveler: ''
-    });
+    this.props.dispatch(addTraveler(this.state.newTraveler));
+    this.setState({ newTraveler: '' });
   },
 
   handleCreateTrip() {
     const data = {
       name: this.props.tripName,
-      travelers: this.state.travelers,
+      travelers: this.props.travelers.list,
       expenses: []
     };
+
     this.props.dispatch(createTrip(data));
     this.props.navigator.push({
       name: 'trip',
@@ -63,10 +71,6 @@ const TripEdit = React.createClass({
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.content}>
-          This will be the trip edit page.
-        </Text>
-
         <View>
           <TextInput
             onChangeText={newTraveler => { this.setState({ newTraveler }) }}
@@ -76,7 +80,10 @@ const TripEdit = React.createClass({
           <Button style={styles.button} onPress={this.addTraveler}>+</Button>
         </View>
 
-        {this.renderTravelers()}
+        <ListView
+          style={styles.travelerList}
+          dataSource={this.state.travelers}
+          renderRow={this.renderRow} />
 
         <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>
       </View>
@@ -124,6 +131,25 @@ const styles = StyleSheet.create({
     margin: 20,
     marginBottom: 20,
     padding: 15,
+  },
+  travelerList: {
+    marginTop: 20,
+    borderColor: '#c0ded3',
+    borderTopWidth: 2,
+    backgroundColor: 'white',
+  },
+  rowContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
+    flex: 1,
+    flexDirection: 'row',
+    padding: 25,
+  },
+  travelerName: {
+    flex: 1,
+    color: '#666',
   },
   button: {
     alignSelf: 'center',
