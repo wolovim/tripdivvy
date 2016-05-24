@@ -78,7 +78,7 @@ export default connect(mapStateToProps)(Trips);
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: '#fdfefb',
+    backgroundColor: '#F5FAF2',
     flex: 1,
   },
   title: {

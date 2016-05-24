@@ -60,7 +60,7 @@ export default connect(mapStateToProps)(Breakdown);
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fdfefb',
+    backgroundColor: '#F5FAF2',
     flex: 1,
   },
   backBtn: {
