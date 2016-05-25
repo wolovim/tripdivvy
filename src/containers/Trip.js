@@ -114,9 +114,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   backBtn: {
-    marginTop: -25,
-    marginBottom: 30,
     alignItems: 'flex-start',
+    marginBottom: 20,
+    marginTop: -28,
   },
   backText: {
     color: '#666',
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0)',
     color: '#666',
     fontSize: 26,
+    fontWeight: 'bold',
     marginTop: 40,
     textAlign: 'center',
   },
