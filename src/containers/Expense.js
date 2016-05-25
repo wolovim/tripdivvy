@@ -47,14 +47,15 @@ const Expense = React.createClass({
         </TouchableOpacity>
 
         <TextInput
-          onChangeText={title => { this.setState({ title }); }}
           multiline={false}
+          onChangeText={title => { this.setState({ title }); }}
           placeholder='Expense title'
           style={styles.input}
           value={this.state.title} />
         <TextInput
-          onChangeText={cost => { this.setState({ cost: parseInt(parseFloat(cost) + 0.5) }); }}
+          keyboardType='numeric'
           multiline={false}
+          onChangeText={input => this.setState({ cost: input.replace(/\D/g, '') })}
           placeholder='Cost'
           style={styles.input}
           value={this.state.cost.toString()} />
