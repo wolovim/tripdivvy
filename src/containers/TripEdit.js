@@ -37,7 +37,7 @@ const TripEdit = React.createClass({
 
   addTraveler() {
     if (this.state.newTraveler === '') {
-      return Alert.alert('Who?', 'The traveler must have a name!');
+      return Alert.alert('Who?', 'Your friend must have a name!');
     }
 
     this.props.dispatch(addTraveler(this.state.newTraveler));
@@ -71,13 +71,13 @@ const TripEdit = React.createClass({
           </Text>
         </TouchableOpacity>
 
-        <View>
+        <View style={styles.travelerFormView}>
           <TextInput
             onChangeText={newTraveler => { this.setState({ newTraveler }) }}
-            placeholder='Add a traveler'
+            placeholder='Who is coming with you?'
             value={this.state.newTraveler}
             style={styles.input} />
-          <Button style={styles.button} onPress={this.addTraveler}>+</Button>
+          <Button style={styles.button} onPress={this.addTraveler}>Add Traveler</Button>
         </View>
 
         <ListView
@@ -85,7 +85,9 @@ const TripEdit = React.createClass({
           dataSource={this.state.travelers}
           renderRow={this.renderRow} />
 
-        <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>
+        <View style={styles.createBtnView}>
+          <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>
+        </View>
       </View>
     );
   }
@@ -124,6 +126,12 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
   },
+  travelerFormView: {
+    flex: 1,
+    paddingBottom: 20,
+    borderColor: '#c0ded3',
+    borderBottomWidth: 2,
+  },
   input: {
     backgroundColor: 'white',
     borderColor: '#999',
@@ -134,9 +142,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   travelerList: {
-    marginTop: 20,
-    borderColor: '#c0ded3',
-    borderTopWidth: 2,
+    flex: 2,
     backgroundColor: 'white',
   },
   rowContainer: {
@@ -156,11 +162,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#87c5ae',
     color: 'white',
-    marginTop: 20,
     padding: 15,
     width: 200,
   },
   travelerContainer: {
     height: 40,
+  },
+  createBtnView: {
+    flex: 1,
+    borderColor: '#c0ded3',
+    borderTopWidth: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
