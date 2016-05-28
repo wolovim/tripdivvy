@@ -49,3 +49,14 @@ export function addExpense(tripName, expense) {
 export function addTraveler(traveler) {
   return { type: types.ADD_TRAVELER, traveler };
 }
+
+export function deleteTrip(tripName) {
+  return dispatch => {
+    trip.deleteTrip(tripName)
+      .then(() => dispatch(deleteTripSuccess(tripName)));
+  }
+}
+
+function deleteTripSuccess(tripName) {
+  return { type: types.DELETE_TRIP_SUCCESS, tripName };
+}

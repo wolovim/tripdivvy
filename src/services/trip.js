@@ -13,6 +13,19 @@ class Trip {
       })
   }
 
+  deleteTrip(tripName) {
+    return this.getTrips()
+      .then(trips => {
+        remove(trips, trip => {
+          return trip.name === tripName;
+        });
+        return JSON.stringify(trips);
+      })
+      .then(tripsJSON => {
+        AsyncStorage.setItem('trips', tripsJSON);
+      });
+  }
+
   getTrips() {
     return AsyncStorage.getItem('trips')
       .then(

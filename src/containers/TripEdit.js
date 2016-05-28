@@ -9,7 +9,7 @@ import React, {
 } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import { addTraveler, createTrip } from '../actions/';
+import { addTraveler, createTrip, deleteTrip } from '../actions/';
 
 const TripEdit = React.createClass({
   getInitialState() {
@@ -58,7 +58,22 @@ const TripEdit = React.createClass({
     });
   },
 
+  handleDeleteTrip() {
+    this.props.dispatch(deleteTrip(this.props.tripName));
+    this.props.navigator.popToTop();
+  },
+
+  renderActionBtn() {
+    if (this.props.editMode) {
+      return <Button style={styles.buttonWhite} onPress={this.handleDeleteTrip}>Delete Trip</Button>;
+    }
+
+    return <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>;
+  },
+
   render() {
+    const { editMode } = this.props;
+
     return (
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -67,7 +82,7 @@ const TripEdit = React.createClass({
 
         <TouchableOpacity style={styles.backBtn} onPress={() => { return this.props.navigator.pop(); }}>
           <Text style={styles.backText}>
-            {'< Trips'}
+            {editMode ? '< Trip' : '< Trips'}
           </Text>
         </TouchableOpacity>
 
@@ -86,7 +101,7 @@ const TripEdit = React.createClass({
           renderRow={this.renderRow} />
 
         <View style={styles.createBtnView}>
-          <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>
+          {this.renderActionBtn()}
         </View>
       </View>
     );
@@ -162,6 +177,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#87c5ae',
     color: 'white',
+    padding: 15,
+    width: 200,
+  },
+  buttonWhite: {
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderColor: '#87c5ae',
+    borderWidth: 1,
+    color: '#87c5ae',
+    marginTop: 10,
     padding: 15,
     width: 200,
   },

@@ -35,6 +35,16 @@ const Trip = React.createClass({
     });
   },
 
+  navigateToEdit() {
+    this.props.navigator.push({
+      name: 'tripEdit',
+      passProps: {
+        tripName: this.props.tripName,
+        editMode: true
+      }
+    });
+  },
+
   navigateToBreakdown() {
     this.props.navigator.push({
       name: 'breakdown',
@@ -93,6 +103,10 @@ const Trip = React.createClass({
         </View>
 
         <View style={styles.viewBreakdownView}>
+          <Button style={styles.buttonWhite} onPress={this.navigateToEdit}>
+            Edit Trip
+          </Button>
+
           <Button style={styles.button} onPress={this.navigateToBreakdown}>
             View Breakdown
           </Button>
@@ -139,7 +153,17 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     backgroundColor: '#87c5ae',
     color: 'white',
-    marginTop: 20,
+    marginTop: 10,
+    padding: 15,
+    width: 200,
+  },
+  buttonWhite: {
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderColor: '#87c5ae',
+    borderWidth: 1,
+    color: '#87c5ae',
+    marginTop: 10,
     padding: 15,
     width: 200,
   },
