@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { assign, find, remove } from 'lodash';
+import { assign, find, reject, remove } from 'lodash';
 
 class Trip {
   addTrip(trip) {
@@ -83,6 +83,30 @@ class Trip {
       .then(trip => {
         return assign({}, trip, {
           expenses: trip.expenses.concat(expense)
+        });
+      })
+      .then(updatedTrip => {
+        trips.push(updatedTrip);
+        return JSON.stringify(trips);
+      })
+      .then(tripsJSON => {
+        AsyncStorage.setItem('trips', tripsJSON);
+      })
+  }
+
+  deleteExpense(tripName, expense) {
+    let trips;
+    return this.getTrips()
+      .then(_trips => {
+        trips = _trips;
+
+        return remove(_trips, trip => {
+          return trip.name === tripName;
+        })[0];
+      })
+      .then(trip => {
+        return assign({}, trip, {
+          expenses: reject(trip.expenses, expense)
         });
       })
       .then(updatedTrip => {

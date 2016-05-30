@@ -46,6 +46,13 @@ export function addExpense(tripName, expense) {
   }
 }
 
+export function deleteExpense(tripName, expense) {
+  return dispatch => {
+    trip.deleteExpense(tripName, expense)
+      .then(() => dispatch(getTrip(tripName)));
+  }
+}
+
 export function addTravelerToNewTrip(traveler) {
   return { type: types.ADD_TRAVELER, traveler };
 }

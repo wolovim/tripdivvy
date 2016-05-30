@@ -8,8 +8,9 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
-import { getTrip } from '../actions/';
+import { getTrip, deleteExpense } from '../actions/';
 import { find, reduce } from 'lodash';
+import ExpenseListItem from './ExpenseListItem';
 
 const Trip = React.createClass({
   getInitialState() {
@@ -54,16 +55,6 @@ const Trip = React.createClass({
     });
   },
 
-  renderRow(expense) {
-    return (
-      <View style={styles.rowContainer}>
-        <Text style={styles.expenseTitle}>{expense.title}</Text>
-        <Text style={styles.expensePayer}>paid by: {expense.payer}</Text>
-        <Text style={styles.expenseCost}>${expense.cost}</Text>
-      </View>
-    );
-  },
-
   totalTripExpenses() {
     return reduce(this.props.trip.expenses, (sum, expense) => {
       return parseInt(sum, 10) + parseInt(expense.cost, 10);
@@ -92,10 +83,16 @@ const Trip = React.createClass({
         </Button>
 
         <ListView
-          style={styles.expenseList}
           dataSource={this.state.expenses}
           enableEmptySections={true}
-          renderRow={this.renderRow} />
+          renderRow={expense => {
+            return (
+              <ExpenseListItem
+                expense={expense}
+                deleteExpense={expense => this.props.dispatch(deleteExpense(this.props.tripName, expense))} />
+            );
+          }}
+          style={styles.expenseList} />
 
         <View style={styles.sumView}>
           <Text style={styles.sum}>Total Trip Expenses:</Text>
@@ -173,31 +170,6 @@ const styles = StyleSheet.create({
     borderColor: '#c0ded3',
     borderTopWidth: 2,
     backgroundColor: 'white',
-  },
-  rowContainer: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderBottomWidth: 2,
-    borderColor: '#c0ded3',
-    flex: 1,
-    flexDirection: 'row',
-    padding: 25,
-  },
-  expenseTitle: {
-    flex: 1,
-    color: '#666',
-  },
-  expensePayer: {
-    flex: 1,
-    color: '#666',
-    fontSize: 13,
-    fontStyle: 'italic',
-  },
-  expenseCost: {
-    color: '#666',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    fontWeight: 'bold',
   },
   sumView: {
     flexDirection: 'row',
