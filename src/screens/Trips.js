@@ -9,7 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { getTrips } from '../actions/';
-import TripListItem from './TripListItem';
+import TripListItem from '../components/TripListItem';
 
 const Trips = React.createClass({
   getInitialState() {

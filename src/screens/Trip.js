@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { getTrip, deleteExpense } from '../actions/';
 import { find, reduce } from 'lodash';
-import ExpenseListItem from './ExpenseListItem';
+import ExpenseListItem from '../components/ExpenseListItem';
 
 const Trip = React.createClass({
   getInitialState() {
