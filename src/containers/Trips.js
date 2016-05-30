@@ -37,7 +37,10 @@ const Trips = React.createClass({
 
     this.props.navigator.push({
       name: 'tripEdit',
-      passProps: { tripName }
+      passProps: {
+        tripName,
+        isNewTrip: true
+      }
     });
     this.setState({ tripName: '' });
   },

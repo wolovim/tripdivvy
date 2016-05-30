@@ -21,6 +21,11 @@ const TripEdit = React.createClass({
     };
   },
 
+  componentWillMount() {
+    if (this.props.isNewTrip) { return; }
+    this.setState({ travelers: this.state.travelers.cloneWithRows(this.props.trip.travelers) });
+  },
+
   componentWillReceiveProps(nextProps) {
     this.setState({
       travelers: this.state.travelers.cloneWithRows(nextProps.travelers.list)
