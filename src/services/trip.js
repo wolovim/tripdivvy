@@ -47,13 +47,36 @@ class Trip {
       );
   }
 
+  addTraveler(tripName, traveler) {
+    return this.getTrips()
+      .then(_trips => {
+        trips = _trips;
+
+        return remove(_trips, trip => {
+          return trip.name === tripName;
+        })[0];
+      })
+      .then(trip => {
+        return assign({}, trip, {
+          travelers: trip.travelers.concat(traveler)
+        });
+      })
+      .then(updatedTrip => {
+        trips.push(updatedTrip);
+        return JSON.stringify(trips);
+      })
+      .then(tripsJSON => {
+        AsyncStorage.setItem('trips', tripsJSON);
+      });
+  }
+
   addExpense(tripName, expense) {
     let trips;
     return this.getTrips()
       .then(_trips => {
-        trips = _trips
+        trips = _trips;
 
-        return remove(_trips, (trip) => {
+        return remove(_trips, trip => {
           return trip.name === tripName;
         })[0];
       })

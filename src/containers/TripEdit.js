@@ -9,7 +9,12 @@ import React, {
 } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
-import { addTraveler, createTrip, deleteTrip } from '../actions/';
+import {
+  addTravelerToNewTrip,
+  addTravelerToTrip,
+  createTrip,
+  deleteTrip
+} from '../actions/';
 
 const TripEdit = React.createClass({
   getInitialState() {
@@ -27,9 +32,15 @@ const TripEdit = React.createClass({
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
-      travelers: this.state.travelers.cloneWithRows(nextProps.travelers.list)
-    });
+    if (this.props.isNewTrip) {
+      this.setState({
+        travelers: this.state.travelers.cloneWithRows(nextProps.travelers.list)
+      });
+    } else {
+      this.setState({
+        travelers: this.state.travelers.cloneWithRows(nextProps.trip.travelers)
+      });
+    }
   },
 
   renderRow(traveler) {
@@ -45,7 +56,12 @@ const TripEdit = React.createClass({
       return Alert.alert('Who?', 'Your friend must have a name!');
     }
 
-    this.props.dispatch(addTraveler(this.state.newTraveler));
+    if (this.props.isNewTrip) {
+      this.props.dispatch(addTravelerToNewTrip(this.state.newTraveler));
+    } else {
+      this.props.dispatch(addTravelerToTrip(this.props.tripName, this.state.newTraveler));
+    }
+
     this.setState({ newTraveler: '' });
   },
 
