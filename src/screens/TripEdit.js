@@ -86,7 +86,12 @@ const TripEdit = React.createClass({
 
   renderActionBtn() {
     if (this.props.editMode) {
-      return <Button style={styles.buttonWhite} onPress={this.handleDeleteTrip}>Delete Trip</Button>;
+      return (
+        <View style={styles.viewActionBtns}>
+          <Button style={styles.buttonWhite} onPress={this.handleDeleteTrip}>Delete Trip</Button>
+          <Button style={styles.button} onPress={() => { this.props.navigator.pop()}}>Back to Trip</Button>
+        </View>
+      );
     }
 
     return <Button style={styles.button} onPress={this.handleCreateTrip}>Create Trip</Button>;
@@ -163,10 +168,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   travelerFormView: {
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
     flex: 1,
     paddingBottom: 20,
-    borderColor: '#c0ded3',
-    borderBottomWidth: 2,
   },
   input: {
     backgroundColor: 'white',
@@ -174,12 +179,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50,
     margin: 20,
-    marginBottom: 20,
+    marginBottom: 10,
     padding: 15,
   },
   travelerList: {
-    flex: 2,
     backgroundColor: 'white',
+    flex: 2,
   },
   rowContainer: {
     alignItems: 'center',
@@ -191,13 +196,15 @@ const styles = StyleSheet.create({
     padding: 25,
   },
   travelerName: {
-    flex: 1,
     color: '#666',
+    flex: 1,
   },
   button: {
     alignSelf: 'center',
     backgroundColor: '#87c5ae',
     color: 'white',
+    marginTop: 10,
+    marginBottom: 10,
     padding: 15,
     width: 200,
   },
@@ -215,9 +222,14 @@ const styles = StyleSheet.create({
     height: 40,
   },
   createBtnView: {
-    flex: 1,
+    alignItems: 'center',
     borderColor: '#c0ded3',
     borderTopWidth: 2,
+    flex: 1,
+    justifyContent: 'center',
+  },
+  actionBtnsView: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
