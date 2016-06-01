@@ -80,6 +80,13 @@ const TripEdit = React.createClass({
   },
 
   handleDeleteTrip() {
+    Alert.alert('Whoa!', 'Are you sure you want to delete it?', [
+      { text: 'Cancel', onPress: () => { return } },
+      { text: 'Delete', onPress: () => { this.deleteAndRedirect() } }
+    ]);
+  },
+
+  deleteAndRedirect() {
     this.props.dispatch(deleteTrip(this.props.tripName));
     this.props.navigator.popToTop();
   },

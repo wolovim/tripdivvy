@@ -1,4 +1,5 @@
 import React, {
+  Alert,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -7,7 +8,12 @@ import React, {
 
 const TripListItem = React.createClass({
   handlePress() {
-    this.props.deleteExpense(this.props.expense);
+    const { deleteExpense, expense } = this.props;
+
+    Alert.alert('Are you sure?', `Do you want to delete expense: ${expense.title}?`, [
+      { text: 'Cancel', onPress: () => { return; } },
+      { text: 'Delete', onPress: () => { deleteExpense(expense); } }
+    ])
   },
 
   render() {
