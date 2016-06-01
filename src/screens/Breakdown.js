@@ -56,17 +56,21 @@ const Breakdown = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Breakdown</Text>
+        <View style={styles.topHalf}>
+          <Text style={styles.title}>Breakdown</Text>
 
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => { return this.props.navigator.pop(); }}>
-          <Text style={styles.backText}>
-            {'< Trip'}
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => { return this.props.navigator.pop(); }}>
+            <Text style={styles.backText}>
+              {'< Trip'}
+            </Text>
+          </TouchableOpacity>
+        </View>
 
-        {this.renderTransactions()}
+        <View style={styles.bottomHalf}>
+          {this.renderTransactions()}
+        </View>
       </View>
     );
   }
@@ -82,6 +86,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F5FAF2',
     flex: 1,
+  },
+  topHalf: {
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
+    flex: 1,
+  },
+  bottomHalf: {
+    backgroundColor: '#FFFFFF',
+    flex: 5,
   },
   backBtn: {
     alignItems: 'flex-start',
