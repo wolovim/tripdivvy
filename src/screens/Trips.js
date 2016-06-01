@@ -45,28 +45,47 @@ const Trips = React.createClass({
     this.setState({ tripName: '' });
   },
 
+  renderTrips() {
+    if (this.state.trips._cachedRowCount === 0) {
+      return (
+        <View style={styles.noTripsContainer}>
+          <Text style={styles.noTripsTitle}>No trips yet!</Text>
+          <Text style={styles.noTripsText}>Got the itch to get out?</Text>
+        </View>
+      );
+    }
+
+    return (
+      <ListView
+        style={styles.tripList}
+        dataSource={this.state.trips}
+        enableEmptySections={true}
+        renderRow={trip => { return <TripListItem navigator={this.props.navigator} trip={trip} /> }} />
+    );
+  },
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>
-          TripDivvy
-        </Text>
+        <View style={styles.topHalf}>
+          <Text style={styles.title}>
+            TripDivvy
+          </Text>
 
-        <TextInput
-          onChangeText={tripName => { this.setState({ tripName }) }}
-          placeholder='My trip name'
-          value={this.state.tripName}
-          style={styles.input} />
+          <TextInput
+            onChangeText={tripName => { this.setState({ tripName }) }}
+            placeholder='My trip name'
+            value={this.state.tripName}
+            style={styles.input} />
 
-        <Button style={styles.button} onPress={this.handlePress}>
-          Add a Trip
-        </Button>
+          <Button style={styles.button} onPress={this.handlePress}>
+            Add a Trip
+          </Button>
+        </View>
 
-        <ListView
-          style={styles.tripList}
-          dataSource={this.state.trips}
-          enableEmptySections={true}
-          renderRow={trip => { return <TripListItem navigator={this.props.navigator} trip={trip} /> }} />
+        <View style={styles.bottomHalf}>
+          {this.renderTrips()}
+        </View>
       </View>
     );
   }
@@ -80,9 +99,18 @@ export default connect(mapStateToProps)(Trips);
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     backgroundColor: '#F5FAF2',
     flex: 1,
+  },
+  topHalf: {
+    alignItems: 'center',
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
+    flex: 1,
+  },
+  bottomHalf: {
+    backgroundColor: '#FFFFFF',
+    flex: 2,
   },
   title: {
     color: '#666',
@@ -97,7 +125,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50,
     margin: 20,
-    marginBottom: 20,
+    marginBottom: 15,
     padding: 15,
   },
   button: {
@@ -108,6 +136,17 @@ const styles = StyleSheet.create({
   },
   tripList: {
     alignSelf: 'stretch',
-    marginTop: 20,
+  },
+  noTripsContainer: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  noTripsTitle: {
+    color: '#666',
+    fontWeight: 'bold',
+  },
+  noTripsText: {
+    color: '#666',
   },
 });

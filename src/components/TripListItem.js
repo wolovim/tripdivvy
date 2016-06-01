@@ -32,8 +32,8 @@ var styles = StyleSheet.create({
   row: {
     alignSelf: 'stretch',
     backgroundColor: 'white',
-    borderTopColor: '#c0ded3',
-    borderTopWidth: 2,
+    borderBottomColor: '#c0ded3',
+    borderBottomWidth: 2,
     flexDirection: 'row',
     justifyContent: 'center',
     padding: 25,
