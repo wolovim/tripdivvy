@@ -61,6 +61,30 @@ const Trip = React.createClass({
     }, 0);
   },
 
+  renderExpenses() {
+    if (this.state.expenses._cachedRowCount === 0) {
+      return (
+        <View style={styles.noExpensesContainer}>
+          <Text style={styles.noExpensesTitle}>No expenses yet!</Text>
+          <Text style={styles.noExpensesText}>Enjoy it while it lasts.</Text>
+        </View>
+      );
+    }
+    return (
+      <ListView
+        dataSource={this.state.expenses}
+        enableEmptySections={true}
+        renderRow={expense => {
+          return (
+            <ExpenseListItem
+              expense={expense}
+              deleteExpense={expense => this.props.dispatch(deleteExpense(this.props.tripName, expense))} />
+          );
+        }}
+        style={styles.expenseList} />
+    );
+  },
+
   render() {
     return (
       <View style={styles.container}>
@@ -82,17 +106,7 @@ const Trip = React.createClass({
           Add an Expense
         </Button>
 
-        <ListView
-          dataSource={this.state.expenses}
-          enableEmptySections={true}
-          renderRow={expense => {
-            return (
-              <ExpenseListItem
-                expense={expense}
-                deleteExpense={expense => this.props.dispatch(deleteExpense(this.props.tripName, expense))} />
-            );
-          }}
-          style={styles.expenseList} />
+        {this.renderExpenses()}
 
         <View style={styles.sumView}>
           <Text style={styles.sum}>Total Trip Expenses:</Text>
@@ -170,6 +184,23 @@ const styles = StyleSheet.create({
     borderColor: '#c0ded3',
     borderTopWidth: 2,
     backgroundColor: 'white',
+  },
+  noExpensesContainer: {
+    alignItems: 'center',
+    backgroundColor: 'white',
+    borderColor: '#c0ded3',
+    borderTopWidth: 2,
+    flex: 1,
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+  noExpensesTitle: {
+    color: '#666',
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  noExpensesText: {
+    color: '#666',
   },
   sumView: {
     flexDirection: 'row',

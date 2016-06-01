@@ -25,8 +25,8 @@ const Breakdown = React.createClass({
       return (
         <View style={styles.noTransactionContainer}>
           <Text style={styles.noTransactionTitle}>No expenses to divvy up yet!</Text>
-          <Text>When you create some,</Text>
-          <Text>you'll see who owes who.</Text>
+          <Text style={styles.noTransactionText}>When you create some,</Text>
+          <Text style={styles.noTransactionText}>you'll see who owes who.</Text>
         </View>
       );
     }
@@ -138,8 +138,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   noTransactionTitle: {
+    color: '#666',
     fontWeight: 'bold',
     marginBottom: 10,
     marginTop: -100,
+  },
+  noTransactionText: {
+    color: '#666',
   },
 });
