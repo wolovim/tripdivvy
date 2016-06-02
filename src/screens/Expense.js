@@ -5,11 +5,13 @@ import React, {
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View
 } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
 import { addExpense } from '../actions/';
+const dismissKeyboard = require('dismissKeyboard');
 
 const Expense = React.createClass({
   getInitialState() {
@@ -35,41 +37,43 @@ const Expense = React.createClass({
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.title}>New Expense</Text>
+      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
+        <View style={styles.container}>
+          <Text style={styles.title}>New Expense</Text>
 
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={() => { return this.props.navigator.pop(); }}>
-          <Text style={styles.backText}>
-            {'< Trip'}
-          </Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => { return this.props.navigator.pop(); }}>
+            <Text style={styles.backText}>
+              {'< Trip'}
+            </Text>
+          </TouchableOpacity>
 
-        <TextInput
-          multiline={false}
-          onChangeText={title => { this.setState({ title }); }}
-          placeholder='Expense title'
-          style={styles.input}
-          value={this.state.title} />
-        <TextInput
-          keyboardType='numeric'
-          multiline={false}
-          onChangeText={input => this.setState({ cost: input.replace(/\D/g, '') })}
-          placeholder='Cost'
-          style={styles.input}
-          value={this.state.cost.toString()} />
-        <Picker
-          onValueChange={payer => { this.setState({ payer }); }}
-          selectedValue={this.state.payer}
-          style={styles.inputPicker}>
-          {this.renderPickerOptions()}
-        </Picker>
+          <TextInput
+            multiline={false}
+            onChangeText={title => { this.setState({ title }); }}
+            placeholder='Expense title'
+            style={styles.input}
+            value={this.state.title} />
+          <TextInput
+            keyboardType='numeric'
+            multiline={false}
+            onChangeText={input => this.setState({ cost: input.replace(/\D/g, '') })}
+            placeholder='Cost'
+            style={styles.input}
+            value={this.state.cost.toString()} />
+          <Picker
+            onValueChange={payer => { this.setState({ payer }); }}
+            selectedValue={this.state.payer}
+            style={styles.inputPicker}>
+            {this.renderPickerOptions()}
+          </Picker>
 
-        <Button style={styles.button} onPress={this.handleAddExpense}>
-          Add Expense
-        </Button>
-      </View>
+          <Button style={styles.button} onPress={this.handleAddExpense}>
+            Add Expense
+          </Button>
+        </View>
+      </TouchableWithoutFeedback>
     );
   }
 });
