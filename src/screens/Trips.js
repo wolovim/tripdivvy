@@ -9,6 +9,7 @@ import React, {
 import { connect } from 'react-redux';
 import Button from 'react-native-button';
 import { getTrips } from '../actions/';
+import { includes } from 'lodash';
 import TripListItem from '../components/TripListItem';
 
 const Trips = React.createClass({
@@ -33,6 +34,9 @@ const Trips = React.createClass({
     const { tripName } = this.state;
     if (tripName === '') {
       return Alert.alert('You went where?', 'Your trip must have a name!');
+    }
+    if (includes(this.props.trips.list.map(trip => { return trip.name }), tripName)) {
+      return Alert.alert('Again?', 'A trip with this name already exists!');
     }
 
     this.props.navigator.push({
