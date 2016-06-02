@@ -36,7 +36,7 @@ const Trips = React.createClass({
       return Alert.alert('You went where?', 'Your trip must have a name!');
     }
     if (includes(this.props.trips.list.map(trip => { return trip.name }), tripName)) {
-      return Alert.alert('Again?', 'A trip with this name already exists!')
+      return Alert.alert('Again?', 'A trip with this name already exists!');
     }
 
     this.props.navigator.push({
