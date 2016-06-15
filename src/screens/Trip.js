@@ -65,8 +65,8 @@ const Trip = React.createClass({
     if (this.state.expenses._cachedRowCount === 0) {
       return (
         <View style={styles.noExpensesContainer}>
-          <Text style={styles.noExpensesTitle}>No expenses yet!</Text>
-          <Text style={styles.noExpensesText}>Enjoy it while it lasts.</Text>
+          <Text style={styles.noExpensesTitle}>No expenses yet.</Text>
+          <Text style={styles.noExpensesText}>Enjoy it while it lasts!</Text>
         </View>
       );
     }
