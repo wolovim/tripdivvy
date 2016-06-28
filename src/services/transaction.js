@@ -1,13 +1,17 @@
 class Transaction {
   findFor(expenses, travelers) {
-    // summed total expenses
-    const totalExpenses = expenses.reduce((sum, item) => {
-      return Number(sum) + Number(item.cost);
-    }, 0);
+    // group expenses by traveler
+    const travelersWithExpenses = this._travelersWithExpenses(travelers, expenses);
 
-    // expense per person
-    const avgExpense = totalExpenses / travelers.length;
+    // find remaining balance per traveler
+    const avgExpense = this._totalExpenses(expenses) / travelers.length;
+    const travelersWithBalance = this._travelersWithBalance(travelersWithExpenses, avgExpense);
 
+    // determine transactions required to square up
+    return this._calculateTransactions(travelersWithBalance);
+  }
+
+  _travelersWithExpenses(travelers, expenses) {
     // group expenses by traveler
     const travelersWithExpenses = expenses.reduce((obj, expense) => {
       obj[expense.payer] = parseFloat(obj[expense.payer] || 0) + parseFloat(expense.cost);
@@ -21,6 +25,16 @@ class Transaction {
       }
     });
 
+    return travelersWithExpenses;
+  }
+
+  _totalExpenses(expenses) {
+    return expenses.reduce((sum, item) => {
+      return Number(sum) + Number(item.cost);
+    }, 0);
+  }
+
+  _travelersWithBalance(travelersWithExpenses, avgExpense) {
     // subtract avg expenses from each traveler to get balance
     // from { me: 1010, you: 0 } to => { me: 505, you: -505 }
     const travelersWithBalance = {};
@@ -28,6 +42,10 @@ class Transaction {
       travelersWithBalance[traveler] = travelersWithExpenses[traveler] - avgExpense;
     }
 
+    return travelersWithBalance;
+  }
+
+  _calculateTransactions(travelersWithBalance) {
     // for each traveler with less than 0 balance,
     // loop over other travelers until finding one with > 0 balance,
     let transactions = []; // [{ payer: 'me', payee: 'you', amount: 505 }]
