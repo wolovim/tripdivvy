@@ -98,13 +98,15 @@ const Trip = React.createClass({
           </Text>
         </TouchableOpacity>
 
-        <Text style={styles.content}>
-          {this.props.trip.travelers.length} travelers
-        </Text>
+        <View style={styles.tripTopDetails}>
+          <Text style={styles.content}>
+            {this.props.trip.travelers.length} travelers
+          </Text>
 
-        <Button style={styles.button} onPress={this.navigateToAddExpense}>
-          Add an Expense
-        </Button>
+          <Button style={styles.button} onPress={this.navigateToAddExpense}>
+            Add an Expense
+          </Button>
+        </View>
 
         {this.renderExpenses()}
 
@@ -156,6 +158,11 @@ const styles = StyleSheet.create({
     marginTop: 40,
     textAlign: 'center',
   },
+  tripTopDetails: {
+    borderBottomWidth: 2,
+    borderColor: '#c0ded3',
+    paddingBottom: 20,
+  },
   content: {
     color: '#666',
     textAlign: 'center',
@@ -180,9 +187,6 @@ const styles = StyleSheet.create({
   },
   expenseList: {
     flex: 2,
-    marginTop: 20,
-    borderColor: '#c0ded3',
-    borderTopWidth: 2,
     backgroundColor: 'white',
   },
   noExpensesContainer: {
