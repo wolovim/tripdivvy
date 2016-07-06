@@ -177,7 +177,6 @@ const styles = StyleSheet.create({
   travelerFormView: {
     borderBottomWidth: 2,
     borderColor: '#c0ded3',
-    flex: 1,
     paddingBottom: 20,
   },
   input: {
@@ -232,7 +231,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: '#c0ded3',
     borderTopWidth: 2,
-    flex: 1,
     justifyContent: 'center',
   },
   actionBtnsView: {

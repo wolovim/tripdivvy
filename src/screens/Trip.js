@@ -192,11 +192,8 @@ const styles = StyleSheet.create({
   noExpensesContainer: {
     alignItems: 'center',
     backgroundColor: 'white',
-    borderColor: '#c0ded3',
-    borderTopWidth: 2,
     flex: 1,
     justifyContent: 'center',
-    marginTop: 20,
   },
   noExpensesTitle: {
     color: '#666',
@@ -226,8 +223,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   viewBreakdownView: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: 20,
   },
 });

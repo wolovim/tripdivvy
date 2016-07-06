@@ -6,7 +6,7 @@ import React, {
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  View
+  ScrollView
 } from 'react-native';
 import Button from 'react-native-button';
 import { connect } from 'react-redux';
@@ -37,8 +37,7 @@ const Expense = React.createClass({
 
   render() {
     return (
-      <TouchableWithoutFeedback onPress={() => dismissKeyboard()}>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Text style={styles.title}>New Expense</Text>
 
           <TouchableOpacity
@@ -72,8 +71,7 @@ const Expense = React.createClass({
           <Button style={styles.button} onPress={this.handleAddExpense}>
             Add Expense
           </Button>
-        </View>
-      </TouchableWithoutFeedback>
+        </ScrollView>
     );
   }
 });

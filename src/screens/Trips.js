@@ -110,11 +110,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 2,
     borderColor: '#c0ded3',
-    flex: 1,
+    paddingBottom: 20,
   },
   bottomHalf: {
     backgroundColor: '#FFFFFF',
-    flex: 2,
+    flex: 1,
   },
   title: {
     color: '#666',
