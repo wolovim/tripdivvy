@@ -1,15 +1,17 @@
 # TripDivvy
-_Coming to the App Store soon!_
+Available for download in the App Store [here](https://itunes.apple.com/us/app/tripdivvy/id1123777353)!
 
 ## What it is
 A [React Native](https://facebook.github.io/react-native/) app for splitting trip expenses among friends.
-Development of this app was for fun/learning; PRs welcome!
+Development of this app was for fun/learning. As part of this exercise, I chose to include
+[Redux](http://redux.js.org/). For the size of the app, this is debatably overkill. There's definitely
+some cleanup to do; PRs welcome!
 
-**Note:** components have been chosen to work well with both iOS and Android,
+**Note:** components have been chosen to play nicely with both iOS and Android,
 but the app is currently untested on Android. That's an exercise for you, the reader.
 
 Is this your first React Native app? Want more context?
-See this [blog post](https://quickleft.com/blog/react-native-in-plain-english/) for more context.
+See this [blog post](https://quickleft.com/blog/react-native-in-plain-english/).
 
 ## Dependencies
 1. An up-to-date version of Xcode.
